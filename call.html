@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peer-to-Peer Video Chat</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center;
+        background-image: linear-gradient(to right, #cad0ff,#e3e3e3); }
+        video { width: 600px; margin: 10px; 
+        border-color: black;}
+        #callButton {
+    background-color: black;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the button */
+#callButton:hover {
+    background-color: #555;
+}
+ 
+    </style>
+</head>
+<body>
+   
+    <h2>Progress Tracking Meet</h2>
+    <video id="localVideo" autoplay muted></video>
+    <video id="remoteVideo" autoplay></video>
+    <button id="callButton">Call</button>
+
+    <!-- PeerJS Library -->
+    <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
+    <script>
+        // Generate a random ID for each peer (user)
+        const peer = new Peer();
+
+        let localStream;
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+        const callButton = document.getElementById('callButton');
+        let currentCall;
+
+        // Access the local media (video and audio)
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                localStream = stream;
+                localVideo.srcObject = stream;
+            })
+            .catch(error => {
+                console.error('Error accessing media devices.', error);
+            });
+
+        // When a peer connects
+        peer.on('open', id => {
+            console.log('My peer ID is:', id);
+            alert(`Your Peer ID: ${id}`);
+        });
+
+        // Handle incoming calls
+        peer.on('call', call => {
+            // Answer the call with the local video/audio stream
+            call.answer(localStream);
+            call.on('stream', remoteStream => {
+                remoteVideo.srcObject = remoteStream;
+            });
+            currentCall = call;
+        });
+
+        // Call another peer when the "Call" button is clicked
+        callButton.addEventListener('click', () => {
+            const remotePeerId = prompt('Enter the Peer ID of the person you want to call:');
+            if (remotePeerId) {
+                const call = peer.call(remotePeerId, localStream);
+                call.on('stream', remoteStream => {
+                    remoteVideo.srcObject = remoteStream;
+                });
+                currentCall = call;
+            }
+        });
+
+        // Close the connection when the page is closed or refreshed
+        window.addEventListener('beforeunload', () => {
+            if (currentCall) currentCall.close();
+            peer.disconnect();
+            peer.destroy();
+        });
+    </script>
+</body>
+</html>
