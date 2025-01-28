@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theater Video Players with Notifications</title>
+    <link rel="stylesheet" href="vid.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="/index.html">Home</a></li>
+           
+            <li><a href="/video/call/call.html">Video Meet</a></li>
+        </ul>
+        <button id="notifications-btn">Please Read <i class="fa-regular fa-envelope"></i></button>
+                <div id="collapsible-content" class="collapsible" style="display: none;">
+                    <button class="collapsible-btn">3 Weeks</button>
+                    <div class="content" style="display: none;">
+                        <p>Reminder: Meet with your trainer about your progress regarding the workout plan.</p>
+                    </div>
+                    <button class="collapsible-btn">5 Weeks</button>
+                    <div class="content" style="display: none;">
+                        <p>Reminder: Meet with your trainer about your progress regarding the workout plan.</p>
+                    </div>
+                    <button class="collapsible-btn">12 Weeks</button>
+                    <div class="content" style="display: none;">
+                        <p>Reminder: Meet with your trainer about your progress regarding the workout plan.</p>
+                    </div>
+                </div>
+    </div>
+
+    <div class="container">
+        <div class="video-container">
+            <div class="video-player">
+                <video id="video1" src="chest.mp4" controls></video>
+                <h3>Chest Workout</h3>
+            </div>
+            <div class="video-player">
+                <video id="video2" src="back.mp4" controls></video>
+                <h3>Back Workout</h3>
+            </div>
+            <div class="video-player">
+                <video id="video3" src="shoulder.mp4" controls></video>
+                <h3>Shoulder Workout</h3>
+            </div>
+            <div class="video-player">
+                <video id="video3" src="bicep.mp4" controls></video>
+                <h3>Biceps Workout</h3>
+            </div>
+            <div class="video-player">
+                <video id="video3" src="tricep.mp4" controls></video>
+                <h3>Triceps Workout</h3>
+            </div>
+            <div class="video-player">
+                <video id="video3" src="legs.mp4" controls></video>
+                <h3>Legs Workout</h3>
+            </div>
+           
+        </div>
+    </div>
+
+    <div class="schedule-container">
+        <h2 class="week-title">Weekly Schedule</h2>
+        <!-- Schedule for each day -->
+        <div class="day-schedule">
+            <h4>Day 1</h4>
+            <p>Video 1: chest Workout</p>
+        </div>
+        <div class="day-schedule">
+            <h4>Day 2</h4>
+            <p>Video 2: Back Workout</p>
+        </div>
+        <div class="day-schedule">
+            <h4>Day 3</h4>
+            <p>Video 3: Shoulder Workout</p>
+        </div>
+        <div class="day-schedule">
+            <h4>Day 4</h4>
+            <p>Video 4: Biceps Workout</p>
+        </div>
+        <div class="day-schedule">
+            <h4>Day 5</h4>
+            <p>Video 5: Triceps Workout</p>
+        </div>
+        <div class="day-schedule">
+            <h4>Day 6</h4>
+            <p>Video 6: Legs Workout</p>
+        </div>
+        <h2>Remainder Please Read Above Given (Please Read)</h2>
+    </div>
+
+    <script>
+        // Toggle the main collapsible content visibility
+        document.getElementById("notifications-btn").addEventListener("click", () => {
+            const collapsibleContent = document.getElementById("collapsible-content");
+            collapsibleContent.style.display = collapsibleContent.style.display === "block" ? "none" : "block";
+        });
+
+        // Individual collapsible sections for each week
+        document.querySelectorAll(".collapsible-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const content = button.nextElementSibling;
+                content.style.display = content.style.display === "block" ? "none" : "block";
+            });
+        });
+    </script>
+</body>
+</html>
