@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('images/backgym.webp'); /* Your background image */
+    background-image: url('backgym.webp'); /* Your background image */
     background-size: cover;
     background-position: center;
     backdrop-filter: blur(5px);
